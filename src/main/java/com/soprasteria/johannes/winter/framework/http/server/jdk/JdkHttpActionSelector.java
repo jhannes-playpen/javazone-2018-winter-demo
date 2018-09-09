@@ -20,7 +20,14 @@ class JdkHttpActionSelector implements HttpActionSelector {
 
     @Override
     public void onGet(String pathPattern, Consumer<HttpAction> action) {
-        if (pathMatches(pathPattern)) {
+        if (exchange.getRequestMethod().equals("GET") && pathMatches(pathPattern)) {
+            handle(action);
+        }
+    }
+
+    @Override
+    public void onPost(String pathPattern, Consumer<HttpAction> action) {
+        if (exchange.getRequestMethod().equals("POST") && pathMatches(pathPattern)) {
             handle(action);
         }
     }

@@ -35,6 +35,11 @@ public class JdkHttpAction implements HttpAction {
         sendContent(200, "application/json", string.getBytes(StandardCharsets.UTF_8));
     }
 
+    @Override
+    public <T> T readJson(Class<T> targetClass) {
+        return null;
+    }
+
     public void respondServerError(Exception e) {
         sendContent(500, "text/plain", e.toString().getBytes());
     }

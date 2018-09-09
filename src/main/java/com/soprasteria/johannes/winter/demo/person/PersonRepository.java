@@ -6,4 +6,6 @@ public interface PersonRepository {
 
     List<Person> listAll();
 
+    Person create(Person person);
+
 }

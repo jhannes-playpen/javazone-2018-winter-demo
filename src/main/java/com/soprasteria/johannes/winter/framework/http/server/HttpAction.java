@@ -8,4 +8,6 @@ public interface HttpAction {
 
     void respondWithJson(Object handleGet);
 
+    <T> T readJson(Class<T> targetClass);
+
 }
