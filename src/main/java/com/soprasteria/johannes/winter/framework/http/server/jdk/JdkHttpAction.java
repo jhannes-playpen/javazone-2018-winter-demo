@@ -6,9 +6,13 @@ import java.nio.charset.StandardCharsets;
 import com.soprasteria.johannes.winter.framework.ExceptionUtil;
 import com.soprasteria.johannes.winter.framework.http.server.HttpAction;
 import com.sun.net.httpserver.HttpExchange;
+import org.jsonbuddy.JsonNode;
+import org.jsonbuddy.JsonObject;
+import org.jsonbuddy.parse.JsonParser;
+import org.jsonbuddy.pojo.JsonGenerator;
+import org.jsonbuddy.pojo.PojoMapper;
 
 
-@SuppressWarnings("restriction")
 public class JdkHttpAction implements HttpAction {
 
     private HttpExchange exchange;
@@ -28,16 +32,17 @@ public class JdkHttpAction implements HttpAction {
     }
 
     @Override
-    public void respondWithJson(Object json) {
-        //JSONObject jsonObject = object instanceof JSONObject ? (JSONObject) object : new JSONObject(object);
+    public void respondWithJson(Object object) {
+        JsonNode jsonObject = JsonGenerator.generate(object);
 
-        String string = json.toString();
+        String string = jsonObject.toJson();
         sendContent(200, "application/json", string.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override
     public <T> T readJson(Class<T> targetClass) {
-        return null;
+        JsonObject jsonObject = JsonParser.parseToObject(exchange.getRequestBody());
+        return PojoMapper.map(jsonObject, targetClass);
     }
 
     public void respondServerError(Exception e) {
