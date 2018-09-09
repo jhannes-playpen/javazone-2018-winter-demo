@@ -3,6 +3,7 @@ package com.soprasteria.johannes.winter.demo.person;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.sql.DataSource;
 
@@ -32,15 +33,24 @@ public class JdbcPersonRepository implements PersonRepository {
     private Person mapRowToPerson(DatabaseRow r) throws SQLException {
         Person person = new Person();
         person.setId(r.getUUID("id"));
-        person.setFamilyName(r.getString("family_name"));
-        person.setGivenName(r.getString("given_name"));
+        person.setFamilyName(r.getString("familyName"));
+        person.setGivenName(r.getString("givenName"));
         return person;
     }
 
     @Override
     public Person create(Person person) {
-        // TODO Auto-generated method stub
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            person.setId(UUID.randomUUID());
+            table.insert()
+                .setPrimaryKey("id", person.getId())
+                .setField("familyName", person.getFamilyName())
+                .setField("givenName", person.getGivenName())
+                .execute(conn);
+            return person;
+        } catch (SQLException e) {
+            throw ExceptionUtil.soften(e);
+        }
     }
 
 }
