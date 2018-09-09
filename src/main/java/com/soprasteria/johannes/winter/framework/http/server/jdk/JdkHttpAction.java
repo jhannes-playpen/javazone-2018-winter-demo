@@ -27,6 +27,11 @@ public class JdkHttpAction implements HttpAction {
         sendContent(404, "text/plain", ("Not Found - " + exchange.getRequestURI().getPath()).getBytes());
     }
 
+    public void respondServerError(Exception e) {
+        sendContent(500, "text/plain", e.toString().getBytes());
+    }
+
+
     private void sendContent(int responseCode, String contentType, byte[] bytes) {
         exchange.getResponseHeaders().set("Content-Type", contentType);
         try {

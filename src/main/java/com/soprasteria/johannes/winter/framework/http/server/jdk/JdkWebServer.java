@@ -41,8 +41,12 @@ public class JdkWebServer implements WebServer {
         String pathTranslated = sanitizePath(path);
         server.createContext(pathTranslated, exchange -> {
             JdkHttpActionSelector selector = new JdkHttpActionSelector(pathTranslated, exchange);
-            controller.handle(selector);
-            selector.onNoMatch(a -> a.respondNotFound());
+            try {
+                controller.handle(selector);
+                selector.onNoMatch(a -> a.respondNotFound());
+            } catch (Exception e) {
+                new JdkHttpAction(exchange).respondServerError(e);
+            }
         });
     }
 

@@ -1,13 +1,18 @@
 package com.soprasteria.johannes.winter.demo;
 
-import com.soprasteria.johannes.winter.framework.PropertySource;
+import com.soprasteria.johannes.winter.framework.config.ApplicationPropertySource;
 
-public class DemoWinterContext {
+public class DemoWinterContext implements HelloContext {
 
-    private PropertySource propertySource;
+    private ApplicationPropertySource props;
 
-    public DemoWinterContext(PropertySource propertySource) {
-        this.propertySource = propertySource;
+    public DemoWinterContext(ApplicationPropertySource propertySource) {
+        this.props = propertySource;
+    }
+
+    @Override
+    public String getGreeting() {
+        return props.required("hello.greeting");
     }
 
 }
