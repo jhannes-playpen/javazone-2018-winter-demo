@@ -25,6 +25,7 @@ public class DemoWinterApplication {
         setApplicationContext(new DemoWinterContext(new PropertySource(System.getProperty("PROFILES"))));
         server.mapPathToController("/", new HelloController());
         server.start();
+        System.out.println("Started on " + getActualPort());
         server.await();
     }
 
