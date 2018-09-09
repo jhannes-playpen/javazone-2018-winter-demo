@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.soprasteria.johannes.winter</groupId>
+  <artifactId>winter-demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Winter Demo</name>
+  <description>When Spring freezes over</description>
+  
+  <build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <target>1.8</target>
+                <source>1.8</source>
+            </configuration>
+        </plugin>
+    </plugins>
+  </build>
+</project>
