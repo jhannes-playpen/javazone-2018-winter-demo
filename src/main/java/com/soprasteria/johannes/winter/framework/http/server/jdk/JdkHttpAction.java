@@ -27,6 +27,14 @@ public class JdkHttpAction implements HttpAction {
         sendContent(404, "text/plain", ("Not Found - " + exchange.getRequestURI().getPath()).getBytes());
     }
 
+    @Override
+    public void respondWithJson(Object json) {
+        //JSONObject jsonObject = object instanceof JSONObject ? (JSONObject) object : new JSONObject(object);
+
+        String string = json.toString();
+        sendContent(200, "application/json", string.getBytes(StandardCharsets.UTF_8));
+    }
+
     public void respondServerError(Exception e) {
         sendContent(500, "text/plain", e.toString().getBytes());
     }

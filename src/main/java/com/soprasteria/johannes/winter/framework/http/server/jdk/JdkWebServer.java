@@ -45,6 +45,7 @@ public class JdkWebServer implements WebServer {
                 controller.handle(selector);
                 selector.onNoMatch(a -> a.respondNotFound());
             } catch (Exception e) {
+                e.printStackTrace();
                 new JdkHttpAction(exchange).respondServerError(e);
             }
         });

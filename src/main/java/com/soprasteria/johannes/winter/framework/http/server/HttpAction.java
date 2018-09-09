@@ -6,4 +6,6 @@ public interface HttpAction {
 
     void respondNotFound();
 
+    void respondWithJson(Object handleGet);
+
 }
