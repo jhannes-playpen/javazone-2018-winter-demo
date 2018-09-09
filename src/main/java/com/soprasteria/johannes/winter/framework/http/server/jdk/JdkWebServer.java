@@ -1,9 +1,11 @@
-package com.soprasteria.johannes.winter.framework.http.server;
+package com.soprasteria.johannes.winter.framework.http.server.jdk;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 import com.soprasteria.johannes.winter.framework.ExceptionUtil;
+import com.soprasteria.johannes.winter.framework.http.server.HttpController;
+import com.soprasteria.johannes.winter.framework.http.server.WebServer;
 import com.sun.net.httpserver.HttpServer;
 
 @SuppressWarnings("restriction")

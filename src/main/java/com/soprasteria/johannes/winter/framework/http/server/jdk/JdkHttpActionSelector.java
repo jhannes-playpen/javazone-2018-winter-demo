@@ -1,7 +1,9 @@
-package com.soprasteria.johannes.winter.framework.http.server;
+package com.soprasteria.johannes.winter.framework.http.server.jdk;
 
 import java.util.function.Consumer;
 
+import com.soprasteria.johannes.winter.framework.http.server.HttpAction;
+import com.soprasteria.johannes.winter.framework.http.server.HttpActionSelector;
 import com.sun.net.httpserver.HttpExchange;
 
 @SuppressWarnings("restriction")

@@ -3,8 +3,8 @@ package com.soprasteria.johannes.winter.demo;
 import java.util.Optional;
 
 import com.soprasteria.johannes.winter.framework.PropertySource;
-import com.soprasteria.johannes.winter.framework.http.server.JdkWebServer;
 import com.soprasteria.johannes.winter.framework.http.server.WebServer;
+import com.soprasteria.johannes.winter.framework.http.server.jdk.JdkWebServer;
 
 public class DemoWinterApplication {
 

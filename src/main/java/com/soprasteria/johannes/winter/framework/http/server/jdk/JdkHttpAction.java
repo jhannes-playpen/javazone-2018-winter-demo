@@ -1,9 +1,10 @@
-package com.soprasteria.johannes.winter.framework.http.server;
+package com.soprasteria.johannes.winter.framework.http.server.jdk;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import com.soprasteria.johannes.winter.framework.ExceptionUtil;
+import com.soprasteria.johannes.winter.framework.http.server.HttpAction;
 import com.sun.net.httpserver.HttpExchange;
 
 
