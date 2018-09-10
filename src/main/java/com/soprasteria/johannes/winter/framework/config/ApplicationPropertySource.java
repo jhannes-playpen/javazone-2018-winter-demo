@@ -14,20 +14,29 @@ import org.flywaydb.core.Flyway;
 
 public class ApplicationPropertySource {
 
-    private PropertySourceList list;
+    private PropertySource propertySource;
 
     public ApplicationPropertySource(String profiles) {
         this(new File("."), profiles != null ? profiles.split(",\\*") : new String[0]);
     }
 
     public ApplicationPropertySource(File configurationDirectory, String[] activeProfiles) {
-        this.list = new PropertySourceList();
+        this(readProperties(configurationDirectory, activeProfiles));
+    }
+
+    public ApplicationPropertySource(PropertySource propertySource) {
+        this.propertySource = propertySource;
+    }
+
+    public static PropertySourceList readProperties(File configurationDirectory, String[] activeProfiles) {
+        PropertySourceList list = new PropertySourceList();
         for (String profile : activeProfiles) {
             list.addPropertySource(new FilePropertySource(new File(configurationDirectory, "application-" + profile + ".properties")));
             list.addPropertySource(new ClasspathPropertySource("/application-" + profile + ".properties"));
         }
         list.addPropertySource(new FilePropertySource(new File(configurationDirectory, "application.properties")));
         list.addPropertySource(new ClasspathPropertySource("/application.properties"));
+        return list;
     }
 
     public String required(String key) {
@@ -35,7 +44,7 @@ public class ApplicationPropertySource {
     }
 
     public Optional<String> property(String key) {
-        return list.property(key);
+        return propertySource.property(key);
     }
 
     private Map<String, DataSource> dataSourceCache = new HashMap<>();

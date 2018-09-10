@@ -36,6 +36,7 @@ public class JdbcPersonRepository implements PersonRepository {
         person.setId(r.getString("id"));
         person.setFamilyName(r.getString("family_name"));
         person.setGivenName(r.getString("given_name"));
+        // TODO: Upstream DatabaseRow#getLocalDate
         Date date = (Date)r.getObject("date_of_birth");
         person.setDateOfBirth(date != null ? date.toLocalDate() : null);
         return person;

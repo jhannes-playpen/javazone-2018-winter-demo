@@ -23,14 +23,18 @@ public class DemoWinterApplication {
 
     private void run(String[] args) {
         setApplicationContext(new DemoWinterContext(new ApplicationPropertySource(System.getProperty("PROFILES"))));
-        server.mapPathToController("/", new HelloController(applicationContext));
-        server.mapPathToController("/person/*", new PersonController(applicationContext));
-        server.start();
+        start();
         System.out.println("Started on " + getActualPort());
         server.await();
     }
 
-    private void setApplicationContext(DemoWinterContext applicationContext) {
+    public void start() {
+        server.mapPathToController("/", new HelloController(applicationContext));
+        server.mapPathToController("/person/*", new PersonController(applicationContext));
+        server.start();
+    }
+
+    public void setApplicationContext(DemoWinterContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

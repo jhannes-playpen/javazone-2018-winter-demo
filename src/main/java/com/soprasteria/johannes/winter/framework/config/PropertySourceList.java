@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class PropertySourceList {
+public class PropertySourceList implements PropertySource {
 
     private final List<PropertySource> propertySources = new ArrayList<>();
 
+    @Override
     public Optional<String> property(String key) {
         return propertySources.stream()
                 .map(p -> p.property(key))
