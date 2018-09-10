@@ -2,6 +2,7 @@ package com.soprasteria.johannes.winter.demo;
 
 import java.util.Optional;
 
+import com.soprasteria.johannes.winter.demo.cats.CatsController;
 import com.soprasteria.johannes.winter.demo.person.PersonController;
 import com.soprasteria.johannes.winter.framework.config.ApplicationPropertySource;
 import com.soprasteria.johannes.winter.framework.http.server.WebServer;
@@ -31,6 +32,7 @@ public class DemoWinterApplication {
     public void start() {
         server.mapPathToController("/", new HelloController(applicationContext));
         server.mapPathToController("/person/*", new PersonController(applicationContext));
+        server.mapPathToController("/cats/*", new CatsController(applicationContext));
         server.start();
     }
 

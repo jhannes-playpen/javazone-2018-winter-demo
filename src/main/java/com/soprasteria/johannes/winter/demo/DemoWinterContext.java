@@ -7,13 +7,18 @@ import javax.sql.DataSource;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
+import com.soprasteria.johannes.winter.demo.cats.CatRepository;
+import com.soprasteria.johannes.winter.demo.cats.CatsContext;
+import com.soprasteria.johannes.winter.demo.cats.JdbcCatRepository;
+import com.soprasteria.johannes.winter.demo.cats.MongoCatRepository;
 import com.soprasteria.johannes.winter.demo.person.JdbcPersonRepository;
 import com.soprasteria.johannes.winter.demo.person.MongoPersonRepository;
 import com.soprasteria.johannes.winter.demo.person.PersonContext;
 import com.soprasteria.johannes.winter.demo.person.PersonRepository;
 import com.soprasteria.johannes.winter.framework.config.ApplicationPropertySource;
 
-public class DemoWinterContext implements HelloContext, PersonContext {
+public class DemoWinterContext implements HelloContext, PersonContext, CatsContext {
 
     private ApplicationPropertySource props;
 
@@ -27,22 +32,29 @@ public class DemoWinterContext implements HelloContext, PersonContext {
     }
 
     @Override
+    public CatRepository getCatRepository() {
+        String databaseProvider = props.propertyChoice("catRepository",
+                new String[] { "mongo", "jdbc" }, "jdbc");
+        if (databaseProvider.equals("mongo")) {
+            return new MongoCatRepository(getMongoDatabase());
+        } else {
+            return new JdbcCatRepository(getDataSource());
+        }
+    }
+
+    @Override
     public PersonRepository getPersonRepository() {
         String databaseProvider = props.propertyChoice("personRepository",
                 new String[] { "mongo", "jdbc" }, "jdbc");
         if (databaseProvider.equals("mongo")) {
-            return getMongoPersonRepository();
+            return new MongoPersonRepository(getMongoDatabase());
         } else {
-            return getJdbcPersonRepository();
+            return new JdbcPersonRepository(getDataSource());
         }
     }
 
-    private PersonRepository getMongoPersonRepository() {
-        return new MongoPersonRepository(getMongoClient().getDatabase(props.property("mongo.database").orElse("test")));
-    }
-
-    private PersonRepository getJdbcPersonRepository() {
-        return new JdbcPersonRepository(getDataSource());
+    private MongoDatabase getMongoDatabase() {
+        return getMongoClient().getDatabase(props.property("mongo.database").orElse("test"));
     }
 
     private Map<String, MongoClient> mongoClientCache = new HashMap<>();

@@ -1,18 +1,10 @@
 package com.soprasteria.johannes.winter.demo.person;
 
-import com.mongodb.MongoClient;
-import org.junit.Before;
+import com.soprasteria.johannes.winter.demo.TestDatabase;
 
 public class MongoPersonRepositoryTest extends PersonRepositoryTest {
 
-    private MongoPersonRepository repository;
-    private MongoClient client;
-
-    @Before
-    public void setupRepository() {
-        client = new MongoClient("localhost", 27017);
-        repository = new MongoPersonRepository(client.getDatabase("unit_test"));
-    }
+    private MongoPersonRepository repository = new MongoPersonRepository(TestDatabase.createMongoDatabase());
 
     @Override
     protected PersonRepository getPersonRepository() {

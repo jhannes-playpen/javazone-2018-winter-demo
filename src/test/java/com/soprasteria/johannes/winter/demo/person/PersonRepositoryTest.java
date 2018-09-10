@@ -2,6 +2,7 @@ package com.soprasteria.johannes.winter.demo.person;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.soprasteria.johannes.winter.demo.SampleData;
 import org.junit.Test;
 
 public abstract class PersonRepositoryTest {

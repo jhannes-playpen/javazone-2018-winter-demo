@@ -1,7 +1,10 @@
-package com.soprasteria.johannes.winter.demo.person;
+package com.soprasteria.johannes.winter.demo;
 
 import java.time.LocalDate;
 import java.util.Random;
+
+import com.soprasteria.johannes.winter.demo.cats.Cat;
+import com.soprasteria.johannes.winter.demo.person.Person;
 
 public class SampleData {
 
@@ -29,6 +32,13 @@ public class SampleData {
 
     static String pickOne(String[] strings) {
         return strings[random.nextInt(strings.length)];
+    }
+
+    public static Cat sampleCat() {
+        Cat cat = new Cat();
+        cat.setName(pickOne(new String[] { "Garfield", "Whiskers", "Socks", "Boots" }));
+        cat.setDateOfBirth(sampleDateAfter(LocalDate.now().minusYears(20), 20));
+        return cat;
     }
 
 }

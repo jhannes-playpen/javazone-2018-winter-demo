@@ -10,6 +10,7 @@ import java.net.URL;
 
 import com.soprasteria.johannes.winter.demo.DemoWinterApplication;
 import com.soprasteria.johannes.winter.demo.DemoWinterContext;
+import com.soprasteria.johannes.winter.demo.SampleData;
 import com.soprasteria.johannes.winter.framework.config.TestPropertySource;
 import org.jsonbuddy.JsonArray;
 import org.jsonbuddy.JsonObject;
