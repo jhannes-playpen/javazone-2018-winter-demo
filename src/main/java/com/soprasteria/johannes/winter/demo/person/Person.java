@@ -1,6 +1,9 @@
 package com.soprasteria.johannes.winter.demo.person;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Objects;
 
 public class Person {
 
@@ -40,6 +43,31 @@ public class Person {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Person)) {
+            return false;
+        }
+        Person other = (Person) o;
+        return Objects.equals(givenName, other.givenName) && Objects.equals(familyName, other.familyName)
+                && Objects.equals(dateOfBirth, other.dateOfBirth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(givenName, familyName, dateOfBirth);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{givenName=" + givenName + ",familyName=" + familyName + ",dateOfBirth=" + dateOfBirth + "}";
+    }
+
+    public void setDateOfBirth(Date date) {
+        this.dateOfBirth = date != null ? date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate() : null;
+
     }
 
 }

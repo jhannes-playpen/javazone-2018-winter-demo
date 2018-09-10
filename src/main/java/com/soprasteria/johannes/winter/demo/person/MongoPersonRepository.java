@@ -21,6 +21,7 @@ public class MongoPersonRepository implements PersonRepository {
             Person person = new Person();
             person.setFamilyName(doc.getString("familyName"));
             person.setGivenName(doc.getString("givenName"));
+            person.setDateOfBirth(doc.getDate("dateOfBirth"));
             person.setId(doc.get("_id").toString());
             return person;
         }).into(new ArrayList<>());
@@ -31,6 +32,7 @@ public class MongoPersonRepository implements PersonRepository {
         Document document = new Document()
                 .append("familyName", person.getFamilyName())
                 .append("givenName", person.getGivenName())
+                .append("dateOfBirth", person.getDateOfBirth())
                 ;
         collection.insertOne(document);
         person.setId(document.getObjectId("_id").toString());

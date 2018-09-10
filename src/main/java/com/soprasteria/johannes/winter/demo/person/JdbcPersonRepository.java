@@ -1,6 +1,7 @@
 package com.soprasteria.johannes.winter.demo.person;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -33,8 +34,10 @@ public class JdbcPersonRepository implements PersonRepository {
     private Person mapRowToPerson(DatabaseRow r) throws SQLException {
         Person person = new Person();
         person.setId(r.getString("id"));
-        person.setFamilyName(r.getString("familyName"));
-        person.setGivenName(r.getString("givenName"));
+        person.setFamilyName(r.getString("family_name"));
+        person.setGivenName(r.getString("given_name"));
+        Date date = (Date)r.getObject("date_of_birth");
+        person.setDateOfBirth(date != null ? date.toLocalDate() : null);
         return person;
     }
 
@@ -44,8 +47,9 @@ public class JdbcPersonRepository implements PersonRepository {
             person.setId(UUID.randomUUID().toString());
             table.insert()
                 .setPrimaryKey("id", person.getId())
-                .setField("familyName", person.getFamilyName())
-                .setField("givenName", person.getGivenName())
+                .setField("family_name", person.getFamilyName())
+                .setField("given_name", person.getGivenName())
+                .setField("date_of_birth", person.getDateOfBirth())
                 .execute(conn);
             return person;
         } catch (SQLException e) {
