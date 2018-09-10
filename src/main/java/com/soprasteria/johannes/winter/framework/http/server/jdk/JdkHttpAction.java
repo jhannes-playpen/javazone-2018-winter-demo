@@ -2,6 +2,8 @@ package com.soprasteria.johannes.winter.framework.http.server.jdk;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.soprasteria.johannes.winter.framework.ExceptionUtil;
 import com.soprasteria.johannes.winter.framework.http.server.HttpAction;
@@ -16,9 +18,11 @@ import org.jsonbuddy.pojo.PojoMapper;
 public class JdkHttpAction implements HttpAction {
 
     private HttpExchange exchange;
+    private Map<String, String> pathParameters;
 
-    public JdkHttpAction(HttpExchange exchange) {
+    JdkHttpAction(HttpExchange exchange, Map<String, String> pathParameters) {
         this.exchange = exchange;
+        this.pathParameters = pathParameters;
     }
 
     @Override
@@ -47,6 +51,11 @@ public class JdkHttpAction implements HttpAction {
 
     public void respondServerError(Exception e) {
         sendContent(500, "text/plain", e.toString().getBytes());
+    }
+
+    @Override
+    public String pathParam(String key) {
+        return pathParameters.get(key);
     }
 
 

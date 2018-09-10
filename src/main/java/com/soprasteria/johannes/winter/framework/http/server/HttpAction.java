@@ -10,4 +10,6 @@ public interface HttpAction {
 
     <T> T readJson(Class<T> targetClass);
 
+    String pathParam(String key);
+
 }

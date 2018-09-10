@@ -2,6 +2,7 @@ package com.soprasteria.johannes.winter.framework.http.server.jdk;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.HashMap;
 
 import com.soprasteria.johannes.winter.framework.ExceptionUtil;
 import com.soprasteria.johannes.winter.framework.http.server.HttpController;
@@ -45,7 +46,7 @@ public class JdkWebServer implements WebServer {
                 selector.onNoMatch(a -> a.respondNotFound());
             } catch (Exception e) {
                 e.printStackTrace();
-                new JdkHttpAction(exchange).respondServerError(e);
+                new JdkHttpAction(exchange, new HashMap<>()).respondServerError(e);
             }
         });
     }

@@ -13,9 +13,17 @@ public abstract class PersonRepositoryTest {
         Person person = SampleData.samplePerson();
         getPersonRepository().create(person);
 
-        assertThat(person).hasNoNullFieldsOrProperties();
         assertThat(getPersonRepository().listAll())
             .contains(person);
     }
 
+    @Test
+    public void shouldRetriveSavedPerson() {
+        Person person = SampleData.samplePerson();
+        getPersonRepository().create(person);
+        assertThat(person).hasNoNullFieldsOrProperties();
+
+        assertThat(getPersonRepository().retrieve(person.getId()))
+            .isEqualToComparingFieldByField(person);
+    }
 }

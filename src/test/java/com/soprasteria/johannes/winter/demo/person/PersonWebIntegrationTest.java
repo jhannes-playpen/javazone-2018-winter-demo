@@ -42,6 +42,12 @@ public class PersonWebIntegrationTest {
         int responseCode = postConnection.getResponseCode();
         assertThat(responseCode).isEqualTo(200);
 
+        JsonObject response = JsonParser.parseToObject(postConnection);
+
+
+        JsonObject fetched = JsonParser.parseToObject(new URL(url + "/" + response.requiredString("id")));
+        assertThat(fetched.requiredString("givenName") + " " + fetched.requiredString("familyName"))
+            .contains(personJson.requiredString("givenName") + " " + personJson.requiredString("familyName"));;
 
         // TODO: Upstream JsonParser.parseArray(URL) and JsonParser.parseArray(HttpURLConnection)
         HttpURLConnection getConnection = (HttpURLConnection) url.openConnection();

@@ -3,9 +3,11 @@ package com.soprasteria.johannes.winter.demo.person;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class MongoPersonRepository implements PersonRepository {
 
@@ -16,15 +18,25 @@ public class MongoPersonRepository implements PersonRepository {
     }
 
     @Override
+    public Person retrieve(String id) {
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        return mapToPerson(collection.find(query).first());
+    }
+
+
+    @Override
     public List<Person> listAll() {
-        return collection.find().map(doc -> {
-            Person person = new Person();
-            person.setFamilyName(doc.getString("familyName"));
-            person.setGivenName(doc.getString("givenName"));
-            person.setDateOfBirth(doc.getDate("dateOfBirth"));
-            person.setId(doc.get("_id").toString());
-            return person;
-        }).into(new ArrayList<>());
+        return collection.find().map(this::mapToPerson).into(new ArrayList<>());
+    }
+
+    public Person mapToPerson(Document doc) {
+        Person person = new Person();
+        person.setFamilyName(doc.getString("familyName"));
+        person.setGivenName(doc.getString("givenName"));
+        person.setDateOfBirth(doc.getDate("dateOfBirth"));
+        person.setId(doc.get("_id").toString());
+        return person;
     }
 
     @Override

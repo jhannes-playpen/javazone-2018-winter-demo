@@ -31,6 +31,15 @@ public class JdbcPersonRepository implements PersonRepository {
         }
     }
 
+    @Override
+    public Person retrieve(String id) {
+        try (Connection conn = dataSource.getConnection()) {
+            return table.where("id", id).singleObject(conn, this::mapRowToPerson);
+        } catch (SQLException e) {
+            throw ExceptionUtil.soften(e);
+        }
+    }
+
     private Person mapRowToPerson(DatabaseRow r) throws SQLException {
         Person person = new Person();
         person.setId(r.getString("id"));

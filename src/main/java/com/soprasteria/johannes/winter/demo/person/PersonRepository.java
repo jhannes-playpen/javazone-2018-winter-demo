@@ -8,4 +8,6 @@ public interface PersonRepository {
 
     Person create(Person person);
 
+    Person retrieve(String id);
+
 }

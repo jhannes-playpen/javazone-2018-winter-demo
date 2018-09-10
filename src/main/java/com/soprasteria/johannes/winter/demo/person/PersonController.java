@@ -18,9 +18,16 @@ public class PersonController implements HttpController {
         selector.onGet("/", action -> {
             action.respondWithJson(handleGet());
         });
+        selector.onGet("/{id}", action -> {
+            action.respondWithJson(handleGet(action.pathParam("id")));
+        });
         selector.onPost("/", action -> {
             action.respondWithJson(handlePost(action.readJson(Person.class)));
         });
+    }
+
+    private Person handleGet(String id) {
+        return context.getPersonRepository().retrieve(id);
     }
 
     private List<Person> handleGet() {
