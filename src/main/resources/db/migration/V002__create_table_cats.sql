@@ -1,5 +1,5 @@
 create table cats (
-	id uuid primary key,
+	id varchar(50) primary key,
 	name varchar(100),
 	date_of_birth date,
 	updated_at timestamp not null,

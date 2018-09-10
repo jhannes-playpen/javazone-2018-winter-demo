@@ -1,5 +1,5 @@
 create table person (
-	id uuid primary key,
+	id varchar(50) primary key,
 	given_name varchar(100),
 	family_name varchar(100),
 	date_of_birth date,
