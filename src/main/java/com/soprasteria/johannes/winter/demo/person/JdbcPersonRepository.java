@@ -32,7 +32,7 @@ public class JdbcPersonRepository implements PersonRepository {
 
     private Person mapRowToPerson(DatabaseRow r) throws SQLException {
         Person person = new Person();
-        person.setId(r.getUUID("id"));
+        person.setId(r.getString("id"));
         person.setFamilyName(r.getString("familyName"));
         person.setGivenName(r.getString("givenName"));
         return person;
@@ -41,7 +41,7 @@ public class JdbcPersonRepository implements PersonRepository {
     @Override
     public Person create(Person person) {
         try (Connection conn = dataSource.getConnection()) {
-            person.setId(UUID.randomUUID());
+            person.setId(UUID.randomUUID().toString());
             table.insert()
                 .setPrimaryKey("id", person.getId())
                 .setField("familyName", person.getFamilyName())

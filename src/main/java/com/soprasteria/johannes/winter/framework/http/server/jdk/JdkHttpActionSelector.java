@@ -6,7 +6,6 @@ import com.soprasteria.johannes.winter.framework.http.server.HttpAction;
 import com.soprasteria.johannes.winter.framework.http.server.HttpActionSelector;
 import com.sun.net.httpserver.HttpExchange;
 
-@SuppressWarnings("restriction")
 class JdkHttpActionSelector implements HttpActionSelector {
 
     private String path;

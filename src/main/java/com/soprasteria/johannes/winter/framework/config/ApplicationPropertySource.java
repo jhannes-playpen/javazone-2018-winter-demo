@@ -34,7 +34,7 @@ public class ApplicationPropertySource {
         return property(key).orElseThrow(() -> new RuntimeException("Missing required property " + key));
     }
 
-    private Optional<String> property(String key) {
+    public Optional<String> property(String key) {
         return list.property(key);
     }
 

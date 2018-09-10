@@ -9,7 +9,6 @@ import com.soprasteria.johannes.winter.framework.http.server.jdk.JdkWebServer;
 
 public class DemoWinterApplication {
 
-    private int port;
     private DemoWinterContext applicationContext;
     private WebServer server;
 

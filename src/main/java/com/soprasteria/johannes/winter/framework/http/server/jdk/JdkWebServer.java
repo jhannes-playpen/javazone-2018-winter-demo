@@ -8,7 +8,6 @@ import com.soprasteria.johannes.winter.framework.http.server.HttpController;
 import com.soprasteria.johannes.winter.framework.http.server.WebServer;
 import com.sun.net.httpserver.HttpServer;
 
-@SuppressWarnings("restriction")
 public class JdkWebServer implements WebServer {
 
     private HttpServer server;
